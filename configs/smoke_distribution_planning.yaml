@@ -1,0 +1,26 @@
+experiment: smoke_distribution_planning
+seed: 1
+device: cpu
+output_root: outputs/smoke
+common_noise:
+  mode: none
+model:
+  T: 2.0
+  dt: 1.0
+training:
+  episodes: 1
+  plot_freq: 1
+  save_freq: 1
+  print_freq: 1
+  moving_average_window: 1
+  gamma: 0.99
+  tau: 0.005
+  actor_lr: 0.0005
+  critic_lr: 0.001
+  buffer_capacity: 100
+  batch_size: 2
+network:
+  actor_hidden_dims: [16]
+  critic_state_hidden_dims: [16]
+  critic_action_hidden_dims: [16]
+  critic_combined_hidden_dims: [16]

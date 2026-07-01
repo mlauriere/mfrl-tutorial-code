@@ -1,0 +1,11 @@
+name: mfrl-tutorial-oss
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - numpy==1.26.4
+      - scipy
+      - matplotlib
+      - gymnasium
+      - torch
+      - PyYAML

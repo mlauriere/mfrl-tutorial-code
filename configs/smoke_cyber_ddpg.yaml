@@ -1,0 +1,27 @@
+experiment: smoke_cyber_ddpg
+seed: 1
+device: cpu
+output_root: outputs/smoke
+common_noise:
+  enabled: false
+model:
+  T: 0.2
+  dt: 0.1
+  dt_fine: 0.1
+  discount_ref: 0.5
+  dt_ref: 0.1
+  simplex_slices: [0.0, 0.25, 0.5, 0.75, 1.0]
+  simplex_grid_res: 10
+training:
+  episodes: 1
+  plot_freq: 1
+  print_freq: 1
+  moving_average_window: 1
+  tau: 0.005
+  actor_lr: 0.001
+  critic_lr: 0.002
+  buffer_capacity: 100
+  batch_size: 2
+network:
+  actor_hidden_dims: [8]
+  critic_hidden_dims: [8]

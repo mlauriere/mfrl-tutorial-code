@@ -1,0 +1,27 @@
+experiment: distribution_planning_with_cn
+seed: 1
+device: cpu
+output_root: outputs
+common_noise:
+  mode: small
+  probabilities: [0.05, 0.9, 0.05]
+model:
+  T: 50.0
+  dt: 1.0
+training:
+  episodes: 3000
+  plot_freq: 100
+  save_freq: 500
+  print_freq: 20
+  moving_average_window: 20
+  gamma: 0.99
+  tau: 0.005
+  actor_lr: 0.0005
+  critic_lr: 0.001
+  buffer_capacity: 50000
+  batch_size: 128
+network:
+  actor_hidden_dims: [128, 128, 128]
+  critic_state_hidden_dims: [128]
+  critic_action_hidden_dims: [128]
+  critic_combined_hidden_dims: [128, 128]

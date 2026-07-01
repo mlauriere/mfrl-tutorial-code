@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mfrl-tutorial"
+version = "0.1.0"
+description = "Reproducible mean-field reinforcement-learning tutorial experiments."
+requires-python = ">=3.10,<3.12"
+license = { file = "LICENSE" }
+dependencies = [
+  "numpy==1.26.4",
+  "scipy",
+  "matplotlib",
+  "gymnasium",
+  "torch",
+  "PyYAML",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

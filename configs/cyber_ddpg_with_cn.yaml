@@ -1,0 +1,30 @@
+experiment: cyber_ddpg_with_cn
+seed: 1
+device: cpu
+output_root: outputs
+common_noise:
+  enabled: true
+  sigma: 0.05
+  clip_low_multiplier: 0.7
+  clip_high_multiplier: 1.3
+model:
+  T: 10.0
+  dt: 0.1
+  dt_fine: 0.1
+  discount_ref: 0.5
+  dt_ref: 0.1
+  simplex_slices: [0.0, 0.25, 0.5, 0.75, 1.0]
+  simplex_grid_res: 10
+training:
+  episodes: 500
+  plot_freq: 20
+  print_freq: 10
+  moving_average_window: 20
+  tau: 0.005
+  actor_lr: 0.001
+  critic_lr: 0.002
+  buffer_capacity: 50000
+  batch_size: 16
+network:
+  actor_hidden_dims: [32, 32]
+  critic_hidden_dims: [32, 32]

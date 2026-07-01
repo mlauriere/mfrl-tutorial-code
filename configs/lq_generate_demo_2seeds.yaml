@@ -1,0 +1,49 @@
+experiment: lq_generate_demo_2seeds
+seed: 1
+output_root: outputs
+n_iter: 1000
+plot_every: 250
+show_plots: false
+seeds: [1, 2]
+model_params:
+  a: 0.5
+  a_bar: 0.5
+  b: 0.5
+  b_bar: 0.5
+  q: 0.5
+  q_bar: 0.5
+  r: 0.5
+  r_bar: 0.5
+  gamma: 0.9
+tasks:
+  - type: Exact
+    name: Adam Exact
+    opt_kwargs:
+      eta: 0.01
+    solver_kwargs:
+  - type: MKV
+    name: Adam MF-MKV
+    opt_kwargs:
+      eta: 0.01
+    solver_kwargs:
+      T: 10
+      M: 100
+      tau: 0.1
+  - type: Pop
+    name: Adam MF-Pop (N={N})
+    opt_kwargs:
+      eta: 0.01
+    solver_kwargs:
+      T: 10
+      M: 100
+      tau: 0.1
+      N: 1
+  - type: Pop
+    name: Adam MF-Pop (N={N})
+    opt_kwargs:
+      eta: 0.01
+    solver_kwargs:
+      T: 10
+      M: 100
+      tau: 0.1
+      N: 10
