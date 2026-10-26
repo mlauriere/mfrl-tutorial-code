@@ -1,0 +1,197 @@
+{
+  "status": "checked_code_only_source_bundle",
+  "public_baseline": "5d5d35d8977bfc2c9921f1bc4285aa827ea0442c",
+  "files": {
+    ".gitignore": {
+      "bytes": 280,
+      "sha256": "bf9799ef00e0c7566aa05d3141b392e57956d7a6855a61ad00f78f4f3a9ccf12"
+    },
+    "LICENSE": {
+      "bytes": 1078,
+      "sha256": "b9c1b53da00e16d7f35cdc5dc480decb01038ea0a07817fce0df3033564eb628"
+    },
+    "README.md": {
+      "bytes": 2980,
+      "sha256": "e5db806f6be01516f5b2fcdce8671b3e6cc6466ac28d54f5a4d7d9db54b02cc7"
+    },
+    "configs/cyber_ddpg_with_cn.yaml": {
+      "bytes": 565,
+      "sha256": "dd9d0a10dbeb10d087306f60fa7da3b036ac75c7dd1068dafe6ba8d7eb86844f"
+    },
+    "configs/cyber_ddpg_without_cn.yaml": {
+      "bytes": 500,
+      "sha256": "13f8fe045d05e3ffca12638baf4442f08b5d5c3d747d36d60554c23b874dec40"
+    },
+    "configs/cyber_qlearning_with_cn.yaml": {
+      "bytes": 986,
+      "sha256": "04727293663c765f84234179e243074769efd184a85d9697682b782b361582b4"
+    },
+    "configs/cyber_qlearning_without_cn.yaml": {
+      "bytes": 921,
+      "sha256": "3e6c4dec3d550af50ef78332790d287ca5f2ac7a661959f22d5ef9e54cef4839"
+    },
+    "configs/distribution_planning_with_cn.yaml": {
+      "bytes": 544,
+      "sha256": "72cf2dc3d8d4d338071ca29c3266bb6996603d97539dd287e6ff702d54f04292"
+    },
+    "configs/distribution_planning_without_cn.yaml": {
+      "bytes": 511,
+      "sha256": "5ab62c9102f8c62dcc2a2ad24c2ced8881b524f9f36176e82a6dbbdc716b4f6f"
+    },
+    "configs/lq_revision_1d.json": {
+      "bytes": 2138,
+      "sha256": "49b3dbaa52317b56d4b66a988cf6d0924c79ffa81125eeadf9bf46133f46730b"
+    },
+    "configs/lq_revision_2d.json": {
+      "bytes": 2994,
+      "sha256": "a10cbda35390491cb15cbf0d107869e7780975063d650b72c750143fc2e0dfa2"
+    },
+    "configs/smoke_cyber_ddpg.yaml": {
+      "bytes": 482,
+      "sha256": "dd2b4a263dba85fc4492128db5904e2e49ad81ee4faf7348ff68224b90874ea0"
+    },
+    "configs/smoke_cyber_qlearning.yaml": {
+      "bytes": 891,
+      "sha256": "60605d87abf60c28692988b2cec4cd817ec83a14d114a70f2b44931b3704e848"
+    },
+    "configs/smoke_distribution_planning.yaml": {
+      "bytes": 479,
+      "sha256": "cff99fc872c435c7e6e970c4f865ba50d834c29afc8490ee2151789898fe9d98"
+    },
+    "docs/local_setup.md": {
+      "bytes": 1186,
+      "sha256": "e9151c594cab7a4be13f729173ad62564a5ec1773b082dd72827a99c3384c145"
+    },
+    "docs/reproducing_figures.md": {
+      "bytes": 1884,
+      "sha256": "b63d68ee794d0fb7b613fdc1478ad9794635669668798e221c1c3385ec2e2bb9"
+    },
+    "docs/reproducing_lq_revision.md": {
+      "bytes": 14694,
+      "sha256": "d077bd992a8c3839a85af942445051775ccf53e681774c35e910be635b99fc09"
+    },
+    "environment.yml": {
+      "bytes": 173,
+      "sha256": "3e3af784a64be56069834ad263bef5ca16e5ff138293f9c690a2fd55b1aab630"
+    },
+    "pyproject.toml": {
+      "bytes": 447,
+      "sha256": "560f5fd5878dd84a1d0da6b662b0d439748757019615c189ae6dea625a51bbb3"
+    },
+    "requirements-lq-revision.txt": {
+      "bytes": 186,
+      "sha256": "7ef18ecda4b7a89cac20ba79bf249dffcbd4e54ddc454ed092fc2d1065cc0499"
+    },
+    "requirements.txt": {
+      "bytes": 54,
+      "sha256": "8a3fcbe2131fc31e49d282dadc40e4e54eb1d3de7c347e2d4429c4c76669895d"
+    },
+    "scripts/run_env_check.sh": {
+      "bytes": 221,
+      "sha256": "2f0f6460b9527230244c1c6496c1cf9bcdd11f74316b685a15b9fd75a247bf59"
+    },
+    "scripts/run_smoke_local.sh": {
+      "bytes": 921,
+      "sha256": "9337301a62922de6000951cec3604ae3cc7a82c7cc8ecde823350b723f7d4148"
+    },
+    "src/mfrl_tutorial/__init__.py": {
+      "bytes": 247,
+      "sha256": "dfa4ebcf0c187606001f13432323d936fda81fe2bc565cda57427a0b8d0f9b6c"
+    },
+    "src/mfrl_tutorial/cybersecurity_ddpg.py": {
+      "bytes": 5507,
+      "sha256": "24057cc8cefd2655852bae424b214922e44cefe450ecba81a2d894017d078c33"
+    },
+    "src/mfrl_tutorial/cybersecurity_ddpg_core.py": {
+      "bytes": 37895,
+      "sha256": "8b773ad2600ac8d61c096d3a315df749e63f5135326287908e91b23af0653aa8"
+    },
+    "src/mfrl_tutorial/cybersecurity_qlearning.py": {
+      "bytes": 3657,
+      "sha256": "d940afae9817d8e2b32ec99d7be31fd9e88b923b87c8149b46ebd899364eddcf"
+    },
+    "src/mfrl_tutorial/cybersecurity_qlearning_core.py": {
+      "bytes": 27246,
+      "sha256": "f7ab191881b337ee2e49fe68f9d58f396a82419a3bdb41694916569daa61e21f"
+    },
+    "src/mfrl_tutorial/distribution_planning_core.py": {
+      "bytes": 31975,
+      "sha256": "c2d44676fcd300dae96c17abb923c6459b4a62c8e352e0bbe39f5c0b8cae98a4"
+    },
+    "src/mfrl_tutorial/distribution_planning_ddpg.py": {
+      "bytes": 5849,
+      "sha256": "1352789b7aaedfaeffddb1525cedd97cd4fb68be6b751166c9b3de00aa723ad8"
+    },
+    "src/mfrl_tutorial/env_check.py": {
+      "bytes": 887,
+      "sha256": "984f354bde5c0226005ecad45e6b3838252982030fb7776ea66bfd9265fb0744"
+    },
+    "src/mfrl_tutorial/lq_mfc_policy_gradient.py": {
+      "bytes": 4100,
+      "sha256": "ba2045c0487b0a401d5d830715935269924e825c6bce83a5019d3398982b7040"
+    },
+    "src/mfrl_tutorial/lq_revision_analyze.py": {
+      "bytes": 8877,
+      "sha256": "715a395dd1580969df6230f2633d60017f4d17fa9196062601473f05860efab9"
+    },
+    "src/mfrl_tutorial/lq_revision_build_native.py": {
+      "bytes": 1566,
+      "sha256": "78042491d8ab4d2fff4a24ee6cb661347a7684690a12c77fe4b5652275040184"
+    },
+    "src/mfrl_tutorial/lq_revision_check.py": {
+      "bytes": 4848,
+      "sha256": "28c4985881a9777585e08bf0d2ff2e79d072b4327c10c42fa97aa02f0837cc86"
+    },
+    "src/mfrl_tutorial/lq_revision_common.py": {
+      "bytes": 2668,
+      "sha256": "ccaf0c70c24ee4c33e7bdde041dccb72a14a2ffd4bb10aa4bbf6d34e0970e349"
+    },
+    "src/mfrl_tutorial/lq_revision_matrix.py": {
+      "bytes": 4245,
+      "sha256": "4b8274cd1869b2a01c45cd8ac34f916a4a57e2f2a168f47e24a2551d9ed46a51"
+    },
+    "src/mfrl_tutorial/lq_revision_matrix_reference.py": {
+      "bytes": 5672,
+      "sha256": "ac9978e2de23bbce3d1cc0acf13fc1a7fc806b192e9d4a9354ae691c4d6c8255"
+    },
+    "src/mfrl_tutorial/lq_revision_model.py": {
+      "bytes": 2779,
+      "sha256": "e53f9b99ee513c91201ec95c1b6f8d3cdf4c514bae9c42a2cbdb1fa48f23f362"
+    },
+    "src/mfrl_tutorial/lq_revision_native.py": {
+      "bytes": 3681,
+      "sha256": "623d4335c1a46b2daf80013b5ce86e9200c6b67d75c5ccc4e1f46d81b553d932"
+    },
+    "src/mfrl_tutorial/lq_revision_plot.py": {
+      "bytes": 14666,
+      "sha256": "9133442cce53a85134a8a6c500dd265861d72316227ba80b046823826c6e3d62"
+    },
+    "src/mfrl_tutorial/lq_revision_scalar.py": {
+      "bytes": 4053,
+      "sha256": "ddae133f3612ba064ebd7d6b171c7f25c08cc2d6f03954ce17325f70f1ea1fa5"
+    },
+    "src/mfrl_tutorial/lq_revision_style.py": {
+      "bytes": 4353,
+      "sha256": "04d561a1281633a77f8f795eee3d40c3bb16aa2c3cf02a827b0fa3e6f48b9e88"
+    },
+    "src/mfrl_tutorial/lq_revision_train.py": {
+      "bytes": 10695,
+      "sha256": "c0eb97ea983d67b2c649c224ab72a72d0ac4f2fb4206afbcbb116db83ac5aaf7"
+    },
+    "src/mfrl_tutorial/native/rollout_fused.c": {
+      "bytes": 1880,
+      "sha256": "0e86fbb2e4f7cbffe9b3ae6df8d3b9fb7c947da05d35b4c238af501ae26c9caa"
+    },
+    "src/mfrl_tutorial/utils.py": {
+      "bytes": 9793,
+      "sha256": "a68722f916d2797855dbbca03a964da4502cb3fa855aac77d77a36133f84d976"
+    }
+  },
+  "exclusions": [
+    "datasets, training histories and generated figures",
+    "generated outputs/caches",
+    "local compiled libraries and BUILD.json",
+    ".git"
+  ],
+  "manifest_self_hash": "excluded to avoid recursion"
+}

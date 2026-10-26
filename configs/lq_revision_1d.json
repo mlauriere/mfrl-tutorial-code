@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "dimension": 1,
+  "model": {
+    "gamma": 0.9,
+    "a": 0.5,
+    "a_bar": 0.5,
+    "b": 0.5,
+    "b_bar": 0.5,
+    "q": 0.5,
+    "q_bar": 0.5,
+    "r": 0.5,
+    "r_bar": 0.5,
+    "initial_covariance_per_component": 0.3333333333333333,
+    "innovation_covariance_per_component": 0.01,
+    "initial_law": "Independent private/common Uniform[-1,1] coordinates",
+    "innovation_law": "Independent private/common Gaussian coordinates with variance0.01"
+  },
+  "training": {
+    "K0": 0.0,
+    "L0": 0.1,
+    "eta": 0.01,
+    "updates": 800,
+    "M": 1000,
+    "T": 40,
+    "tau": 0.1
+  },
+  "optimizer": "plain constant-step SGD",
+  "estimator": "raw one-point independent-cost",
+  "normalization": "1/tau^2 per scalar gain",
+  "methods": [
+    "MKV",
+    "Pop_N2",
+    "Pop_N5",
+    "Pop_N10",
+    "Pop_N20",
+    "Pop_N50",
+    "Pop_N100"
+  ],
+  "seeds": [
+    20261028,
+    20261029,
+    20261030,
+    20261101,
+    20261102,
+    20261103,
+    20261104,
+    20261105,
+    20261106,
+    20261107,
+    20261108,
+    20261109,
+    20261110,
+    20261111,
+    20261112,
+    20261113,
+    20261114,
+    20261115,
+    20261116,
+    20261117
+  ],
+  "rng": {
+    "generator": "NumPy default_rng / PCG64",
+    "key": [
+      "seed",
+      1,
+      "update",
+      "stream"
+    ],
+    "streams": {
+      "0": "perturbations",
+      "1": "private_initial",
+      "2": "private_noise",
+      "3": "common_initial",
+      "4": "common_noise"
+    },
+    "private_agent_prefix_coupling": true,
+    "draw_spec": "See lq_revision_scalar.py primitives/directions"
+  },
+  "evaluation": {
+    "updates": [
+      0,
+      800
+    ],
+    "seeds": 20,
+    "late_window": [
+      601,
+      800
+    ],
+    "moving_average_window": 21,
+    "smoothing": "per stochastic run; symmetric shortened endpoints; exact reference unsmoothed",
+    "cost_band": "SEM of smoothed runs",
+    "gain_band": "sample SD of smoothed runs",
+    "ddof": 1,
+    "norm_order": "per-run matrix Frobenius norm, then smoothing, then across-run aggregation",
+    "population_plot": "raw601-800 mean per run, then across-run mean/SEM; exact N without jitter"
+  }
+}

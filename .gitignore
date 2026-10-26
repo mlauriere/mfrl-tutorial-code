@@ -11,3 +11,11 @@ venv/
 build/
 dist/
 *.egg-info/
+src/mfrl_tutorial/native/*.dylib
+src/mfrl_tutorial/native/*.so
+src/mfrl_tutorial/native/BUILD.json
+
+# Locally generated numerical data
+/data/
+*.npy
+*.npz

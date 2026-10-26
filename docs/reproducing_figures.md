@@ -1,5 +1,12 @@
 # Reproducing Figures
 
+For book Figures 6.1–6.5, use
+[the LQ reproduction guide](reproducing_lq_revision.md). It provides the frozen
+settings, exact figure mapping, independent plain-SGD training/analysis commands
+and plotting commands for locally generated data. No datasets are distributed.
+The commands below also cover the
+cybersecurity and distribution-planning examples.
+
 Run from this folder.
 
 Environment check:
@@ -8,15 +15,15 @@ Environment check:
 PYTHONPATH=src python -m mfrl_tutorial.env_check
 ```
 
-LQ data-generation demo:
+First train and analyze the LQ experiments using the linked guide. Then plot
+the locally generated results without further training:
 
 ```bash
-PYTHONPATH=src python -m mfrl_tutorial.lq_generate_data --config configs/lq_generate_demo_2seeds.yaml
+PYTHONPATH=src python -B -m mfrl_tutorial.lq_revision_plot --data outputs/retrained_data --output outputs/revised_figures
 ```
 
-The LQ data-generation demo is a lightweight from-scratch check with two seeds, so it should be
-treated as an algorithmic reproducibility demo rather than a statistical reproduction of the book
-aggregate. Full aggregate LQ data are not bundled in this first public version.
+Independent LQ training uses the frozen 1D and 2D configurations and explicit
+update/time budgets; follow the linked guide for those commands.
 
 Cybersecurity Q-learning:
 

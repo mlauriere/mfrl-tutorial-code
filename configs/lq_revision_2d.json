@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "dimension": 2,
+  "model": {
+    "gamma": 0.9,
+    "A": [
+      [
+        0.45,
+        0.2
+      ],
+      [
+        -0.1,
+        0.4
+      ]
+    ],
+    "A_bar": [
+      [
+        0.4,
+        -0.05
+      ],
+      [
+        0.08,
+        0.45
+      ]
+    ],
+    "B": [
+      [
+        0.5,
+        0.1
+      ],
+      [
+        0.05,
+        0.45
+      ]
+    ],
+    "B_bar": [
+      [
+        0.15,
+        -0.05
+      ],
+      [
+        0.03,
+        0.2
+      ]
+    ],
+    "Q": [
+      [
+        0.65,
+        0.12
+      ],
+      [
+        0.12,
+        0.45
+      ]
+    ],
+    "Q_bar": [
+      [
+        0.25,
+        -0.04
+      ],
+      [
+        -0.04,
+        0.35
+      ]
+    ],
+    "R": [
+      [
+        0.55,
+        0.06
+      ],
+      [
+        0.06,
+        0.45
+      ]
+    ],
+    "R_bar": [
+      [
+        0.25,
+        -0.03
+      ],
+      [
+        -0.03,
+        0.3
+      ]
+    ],
+    "initial_covariance_per_component": 0.3333333333333333,
+    "innovation_covariance_per_component": 0.01,
+    "initial_law": "Independent private/common Uniform[-1,1] coordinates",
+    "innovation_law": "Independent private/common Gaussian coordinates with variance0.01"
+  },
+  "training": {
+    "K0": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "L0": [
+      [
+        0.1,
+        0.0
+      ],
+      [
+        0.0,
+        0.1
+      ]
+    ],
+    "eta": 0.01,
+    "updates": 800,
+    "M": 24000,
+    "T": 40,
+    "tau": 0.15
+  },
+  "optimizer": "plain constant-step SGD",
+  "estimator": "raw one-point independent-cost",
+  "normalization": "4/tau^2 per matrix gain",
+  "methods": [
+    "MKV",
+    "Pop_N2",
+    "Pop_N10",
+    "Pop_N100"
+  ],
+  "seeds": [
+    20261211,
+    20261212,
+    20261213,
+    20261214,
+    20261215,
+    20261216,
+    20261217,
+    20261218,
+    20261219,
+    20261220,
+    20261221,
+    20261222,
+    20261223,
+    20261224,
+    20261225,
+    20261226,
+    20261227,
+    20261228,
+    20261229,
+    20261230
+  ],
+  "rng": {
+    "generator": "NumPy default_rng / PCG64",
+    "key": [
+      "seed",
+      "M",
+      "update",
+      "stream"
+    ],
+    "streams": {
+      "0": "perturbations",
+      "1": "private_initial",
+      "2": "common_initial",
+      "3": "private_noise",
+      "4": "common_noise"
+    },
+    "private_agent_prefix_coupling": true,
+    "draw_spec": "See lq_revision_matrix_reference.py inputs"
+  },
+  "evaluation": {
+    "updates": [
+      0,
+      800
+    ],
+    "seeds": 20,
+    "late_window": [
+      601,
+      800
+    ],
+    "moving_average_window": 21,
+    "smoothing": "per stochastic run; symmetric shortened endpoints; exact reference unsmoothed",
+    "cost_band": "SEM of smoothed runs",
+    "gain_band": "sample SD of smoothed runs",
+    "ddof": 1,
+    "norm_order": "per-run matrix Frobenius norm, then smoothing, then across-run aggregation",
+    "population_plot": "raw601-800 mean per run, then across-run mean/SEM; exact N without jitter"
+  }
+}
