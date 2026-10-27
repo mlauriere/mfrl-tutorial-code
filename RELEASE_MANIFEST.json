@@ -71,8 +71,8 @@
       "sha256": "52f3ba0cf63f00b48f1206f084ca1e0fd935670b89db2c80f28bb82f8c28bfed"
     },
     "docs/reproducing_lq_revision.md": {
-      "bytes": 14414,
-      "sha256": "78ee507ea62cada0d8476e2ed5d21e44ec60fb0cb14530e6256bc83a7d8bcaa6"
+      "bytes": 14423,
+      "sha256": "72cec36f62fe5a8a3ba0b34cec249bfd818a4dc7c17de51d58591f490bc96fb1"
     },
     "environment.yml": {
       "bytes": 173,
@@ -123,8 +123,8 @@
       "sha256": "7fe1a2ddbf19a7623c7b96304d27eee5fa5a9327d1cb2d7bdac6ad6536c969a6"
     },
     "src/mfrl_tutorial/cybersecurity_qlearning_core.py": {
-      "bytes": 28730,
-      "sha256": "b8d5a0c2beaec9885bc8885a443869ceae1b9b1449cd32b420cb616398746420"
+      "bytes": 28182,
+      "sha256": "15c0ad7b6c17eddd6ba4e506b87905ff1f8c0742bf21bdd39500cd4309168c78"
     },
     "src/mfrl_tutorial/distribution_planning_core.py": {
       "bytes": 33206,

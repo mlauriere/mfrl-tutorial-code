@@ -338,16 +338,7 @@ def precompute_tables(env: Any, discretization_params: Dict) -> Dict:
     next_mu_c /= np.sum(next_mu_c, axis=2, keepdims=True)
 
     costs = np.array([env.k_D+env.k_I, env.k_D, env.k_I, 0.0])
-    # mu_b is (S, 1, 4), al_b is (1, A, 4), but rewards only depend on mu and action is fixed per level.
-    # However, env.get_reward(mu, alpha) in CyberSecEnvContinuous actually doesn't use alpha!
-    # Let's check env.get_reward:
-    # def get_reward(self, mu: np.ndarray, alpha: np.ndarray) -> float:
-    #     costs_vec = np.zeros(self.NS)
-    #     costs_vec[0] = self.k_D + self.k_I
-    #     costs_vec[1] = self.k_D
-    #     costs_vec[2] = self.k_I
-    #     return -np.sum(mu * costs_vec) * self.dt
-    # It indeed only depends on mu. So reward_table is actually (S, 1) conceptually but we need it (S, A) for indexing.
+    # Rewards depend only on mu; repeat them across actions for (S, A) indexing.
     reward_table = -np.sum(mu_b * costs, axis=2) * env.dt # Shape (S, 1)
     reward_table = np.tile(reward_table, (1, A)) # Shape (S, A)
 

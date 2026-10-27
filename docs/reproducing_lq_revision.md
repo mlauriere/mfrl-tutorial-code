@@ -3,9 +3,10 @@
 This repository provides code to train the frozen benchmarks, analyze the
 resulting policies and plot the book figures from those local results. No
 datasets, training histories or generated figures are distributed. These
-figures use plain constant-step SGD. The separate
-`mfrl_tutorial.lq_mfc_policy_gradient` module is an Adam demonstration and does
-not reproduce these figures. Record the source version with `git rev-parse HEAD`.
+figures use plain constant-step SGD. The
+`mfrl_tutorial.lq_mfc_policy_gradient` module provides the scalar LQ model
+and exact benchmark routines used by this workflow. Record the source version
+with `git rev-parse HEAD`.
 
 ## Dependencies and process settings
 
