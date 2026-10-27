@@ -38,8 +38,10 @@ def _initial_distribution_sampler(n_states: int):
 
 def _common_noise_sampler(config: Dict):
     mode = config.get("common_noise", {}).get("mode", "small")
-    if mode == "none":
+    if mode in ("none", None):
         return lambda: 0
+    if mode != 'small':
+        raise ValueError('common_noise.mode must be none or small')
     probabilities = config.get("common_noise", {}).get("probabilities", [0.05, 0.9, 0.05])
     return lambda: np.random.choice(np.arange(-1, 2), p=probabilities)
 
@@ -116,6 +118,8 @@ def run(config: Dict) -> str:
             "training",
             f"episodes={train_cfg.get('episodes', 3000)}, plot_freq={train_cfg.get('plot_freq', 100)}, device={device}",
         )
+        from .chapter5_io import run_info
+        run_info(output_dir, 'distribution_planning', config)
         planning_core.train_policy(
             env,
             actor,
@@ -143,6 +147,9 @@ def run(config: Dict) -> str:
             save_freq=int(train_cfg.get("save_freq", 500)),
             window_size=int(train_cfg.get("moving_average_window", 20)),
         )
+        torch.save(dict(actor=actor.state_dict(), critic=critic.state_dict(),
+                        target_actor=target_actor.state_dict(), target_critic=target_critic.state_dict()),
+                   output_dir/'networks_final.pt')
         logger.log("done", "distribution-planning DDPG completed")
 
     write_manifest(output_dir, config, status="completed")

@@ -90,6 +90,10 @@ def run(config: Dict[str, Any]) -> str:
                 int(params.get("simplex_grid_res", 10)),
             )
         }
+        shared_tables['simplex_slices'] = params.get('simplex_slices', [0.0, 0.25, 0.5, 0.75, 1.0])
+        shared_tables['simplex_grid_res'] = int(params.get('simplex_grid_res', 10))
+        from .chapter5_io import run_info
+        run_info(output_dir, 'cyber_ddpg', config)
 
         actor_hdims = net_cfg.get("actor_hidden_dims", [32, 32])
         critic_hdims = net_cfg.get("critic_hidden_dims", [32, 32])
@@ -135,6 +139,9 @@ def run(config: Dict[str, Any]) -> str:
             true_sols,
             int(train_cfg.get("moving_average_window", 20)),
         )
+        torch.save(dict(actor=actor.state_dict(), critic=critic.state_dict(),
+                        target_actor=target_actor.state_dict(), target_critic=target_critic.state_dict()),
+                   output_dir/'networks_final.pt')
         logger.log("done", "cybersecurity DDPG completed")
 
     write_manifest(output_dir, config, status="completed")

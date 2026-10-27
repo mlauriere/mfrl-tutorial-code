@@ -19,3 +19,7 @@ src/mfrl_tutorial/native/BUILD.json
 /data/
 *.npy
 *.npz
+*.pt
+*.pth
+*.pkl
+*.pickle

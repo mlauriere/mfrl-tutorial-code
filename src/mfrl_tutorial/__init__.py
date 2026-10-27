@@ -4,6 +4,7 @@ __all__ = [
     "cybersecurity_qlearning",
     "cybersecurity_ddpg",
     "distribution_planning_ddpg",
+    "chapter5_figures",
     "lq_revision_train",
     "lq_revision_analyze",
     "lq_revision_plot",

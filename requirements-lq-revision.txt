@@ -1,5 +1,4 @@
-# Tested with Python3.10.18. This file describes the LQ dependency set;
-# preparing this candidate did not install or modify any packages.
+# Verified NumPy-only LQ dependency set with Python 3.10.18.
 numpy==1.26.4
 scipy==1.15.3
 matplotlib==3.10.0

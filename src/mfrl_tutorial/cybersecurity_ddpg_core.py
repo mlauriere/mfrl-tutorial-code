@@ -16,6 +16,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from gymnasium import spaces
+from .chapter5_io import save_snapshot, save_training
 
 # Set seed for reproducibility
 np.random.seed(1)
@@ -680,7 +681,8 @@ def plot_value_simplex_slices(output_dir: str, prefix: str, iter_idx: int, actor
     Row 2: Benchmark Cost (<u(0), m>)
     Harmonized color scale and single colorbar.
     """
-    mu_DI_vals = [0.0, 0.25, 0.5, 0.75, 1.0]
+    mu_DI_vals = tables.get('simplex_slices', [0.0, 0.25, 0.5, 0.75, 1.0])
+    grid_res = tables.get('simplex_grid_res', grid_res)
     n_slices = len(mu_DI_vals)
     
     # Grid for DS and UI
@@ -723,6 +725,11 @@ def plot_value_simplex_slices(output_dir: str, prefix: str, iter_idx: int, actor
     all_vals = np.concatenate([np.array(rl_costs_all).flatten(), np.array(bench_costs_all).flatten()])
     vmin = np.nanmin(all_vals)
     vmax = np.nanmax(all_vals)
+
+    save_snapshot(output_dir, 'simplex', iter_idx,
+        dict(X=X, Y=Y, slices=mu_DI_vals, rl=rl_costs_all, benchmark=bench_costs_all),
+        vmin=float(vmin), vmax=float(vmax), cmap='magma',
+        benchmark='Forward-backward ODE reference at constant attack rate')
     
     # Figure 1: RL Cost Slices
     fig_rl, axes_rl = plt.subplots(1, n_slices, figsize=(5 * n_slices, 5), constrained_layout=True)
@@ -867,12 +874,14 @@ def train_policy(env: Any,
             # --- Evaluation Phase ---
             all_t = [traj]
             current_eval_rs = []
+            displayed_noise = []
 
             for t_init in test_inits:
                 dist_rewards = []
                 for _ in range(EVAL_EP_PER_DIST):
                     ts, _ = env.reset(t_init)
                     ct = [ts]
+                    v_h_path = [env.v_H]
                     ep_r = 0.0
                     while True:
                         tst = torch.FloatTensor(ts).unsqueeze(0).to(device)
@@ -880,6 +889,7 @@ def train_policy(env: Any,
                             ta = [actor(tst).cpu().numpy().squeeze(0)]
                         tns, tr, td, _, _ = env.step(ta)
                         ct.append(tns)
+                        v_h_path.append(env.v_H)
                         ep_r += tr
                         ts = tns
                         if td: break
@@ -888,10 +898,21 @@ def train_policy(env: Any,
                 current_eval_rs.append(np.mean(dist_rewards))
                 if len(all_t) <= len(test_inits): # Only store one trajectory for visualization
                     all_t.append(ct)
+                    displayed_noise.append(v_h_path)
 
             mean_eval_r = np.mean(current_eval_rs)
             eval_rewards.append(mean_eval_r)
             eval_eps.append(ep)
+
+            arrays = dict(trajectories=all_t[1:], time=np.linspace(0, env.T, env.Nt+1),
+                          v_h_paths=displayed_noise)
+            if true_sols is not None:
+                arrays.update(reference=true_sols,
+                              reference_time=np.linspace(0, env.T, len(true_sols[0])))
+            save_snapshot(output_dir, 'evaluation', ep, arrays,
+                          rollouts_per_start=EVAL_EP_PER_DIST, displayed_rollout='last rollout',
+                          reference='Forward-backward ODE solution at constant attack rate')
+            save_training(output_dir, ep, rewards, eval_rewards, eval_eps, window=window_size)
 
             plot_training_progress(output_dir, "cybersec_", rewards, ep, eval_rewards, eval_eps, window_size)
             plot_evaluation(output_dir, "cybersec_", env, all_t, ep, true_sols, actor, device)
@@ -906,4 +927,6 @@ def train_policy(env: Any,
             print(log_str)
             with open(log_file, "a") as f:
                 f.write(log_str + "\n")
+
+    save_training(output_dir, episodes, rewards, eval_rewards, eval_eps, window=window_size)
 

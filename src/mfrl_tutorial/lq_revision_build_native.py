@@ -4,6 +4,7 @@ No package installation or system configuration change is performed. NumPy is
 the default backend and does not need this command.
 """
 from pathlib import Path
+import argparse
 import os
 import platform
 import shlex
@@ -14,6 +15,8 @@ from .lq_revision_common import digest, write_json
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.parse_args()
     if sys.platform not in ('darwin', 'linux'):
         raise SystemExit('Native builder supports macOS/Linux; use the NumPy backend here')
     compiler = shlex.split(os.environ['CC']) if 'CC' in os.environ else [shutil.which('clang') or shutil.which('cc') or '']

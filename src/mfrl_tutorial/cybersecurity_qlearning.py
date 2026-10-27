@@ -74,6 +74,10 @@ def run(config: Dict[str, Any]) -> str:
             params.get("simplex_slices", [0.0, 0.25, 0.5, 0.75, 1.0]),
             int(params.get("simplex_grid_res", 10)),
         )
+        shared_tables['simplex_slices'] = params.get('simplex_slices', [0.0, 0.25, 0.5, 0.75, 1.0])
+        shared_tables['simplex_grid_res'] = int(params.get('simplex_grid_res', 10))
+        from .chapter5_io import run_info
+        run_info(output_dir, 'cyber_qlearning', config)
 
         solvers = []
         for solver_config in config.get("solvers", []):

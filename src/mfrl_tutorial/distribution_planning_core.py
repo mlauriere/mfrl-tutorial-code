@@ -13,6 +13,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from gymnasium import spaces
+from .chapter5_io import save_snapshot, save_training
 
 # Set seed for reproducibility
 np.random.seed(1)
@@ -359,7 +360,7 @@ def plot_training_progress(output_dir: str, prefix: str, rewards: List[float], e
     plt.close()
 
 
-def plot_evaluation(output_dir: str, prefix: str, env: Any, trajs: List[List[np.ndarray]], ep: int, actor_model: nn.Module, device: torch.device, window_size: int = 20):
+def plot_evaluation(output_dir: str, prefix: str, env: Any, trajs: List[List[np.ndarray]], ep: int, actor_model: nn.Module, device: torch.device, window_size: int = 20, noise_paths=None):
     """
     Generates evaluation plots including state distributions, actions, and evolution over time.
 
@@ -375,6 +376,8 @@ def plot_evaluation(output_dir: str, prefix: str, env: Any, trajs: List[List[np.
     """
     n_tests = len(trajs) - 1
     if n_tests <= 0: return
+    if noise_paths is None or len(noise_paths) != n_tests:
+        raise ValueError('Supply the common-noise path paired with each displayed trajectory')
 
     t_space = np.linspace(0, env.T, num=env.Nt + 1)
 
@@ -475,8 +478,9 @@ def plot_evaluation(output_dir: str, prefix: str, env: Any, trajs: List[List[np.
         axs[3].legend(loc='upper right', fontsize='small')
 
         # 5. Common Noise
-        t_noise = np.arange(len(env.cn_traj)) * env.dt
-        axs[4].plot(t_noise, np.cumsum(env.cn_traj), label="Cumul CN", color='black')
+        noise = np.asarray(noise_paths[idx])
+        t_noise = np.arange(len(noise)+1) * env.dt
+        axs[4].step(t_noise, np.r_[0, np.cumsum(noise)], where='post', label="Cumulative CN", color='black')
         axs[4].set_title("Common noise")
         axs[4].set_xlabel("Time")
         axs[4].legend()
@@ -717,25 +721,35 @@ def train_policy(env: Any,
             eval_rewards.append(mean_eval_r)
             eval_eps.append(ep)
 
+            # Use the online actor that generated these evaluation trajectories.
+            # Capture each case's own actions and noise, never mutable env state
+            # left over from a different evaluation rollout.
+            for record in test_data_for_saving:
+                with torch.no_grad():
+                    st_init = torch.FloatTensor(record['traj'][0]).unsqueeze(0).to(device)
+                    st_last = torch.FloatTensor(record['traj'][-1]).unsqueeze(0).to(device)
+                    record['act_init'] = actor(st_init).cpu().numpy().squeeze(0)
+                    record['act_last'] = actor(st_last).cpu().numpy().squeeze(0)
+            save_snapshot(output_dir, 'planning', ep, dict(
+                trajectories=[r['traj'] for r in test_data_for_saving],
+                noise=[r['cn_traj'] for r in test_data_for_saving],
+                actions_initial=[r['act_init'] for r in test_data_for_saving],
+                actions_terminal=[r['act_last'] for r in test_data_for_saving],
+                target=DISTRIBUTION_TARGET, time=np.linspace(0, env.T, env.Nt+1)),
+                rollouts_per_start=EVAL_EP_PER_DIST, displayed_rollout='first rollout',
+                actions_policy='online actor used for evaluation',
+                noise_alignment='Initial zero at t=0; first n shocks accumulated at t=n*dt')
+            save_training(output_dir, ep, rewards, eval_rewards, eval_eps, window=window_size)
+
             if ep % plot_freq == 0:
                 plot_training_progress(output_dir, "distribplanning_", rewards, ep, eval_rewards, eval_eps, window_size)
-                plot_evaluation(output_dir, "distribplanning_", env, all_t, ep, target_actor, device, window_size)
+                plot_evaluation(output_dir, "distribplanning_", env, all_t, ep, actor, device, window_size,
+                                noise_paths=[r['cn_traj'] for r in test_data_for_saving])
 
             if ep % save_freq == 0:
                 data_dir = os.path.join(output_dir, "data")
                 os.makedirs(data_dir, exist_ok=True)
                 
-                # Add action data to test_data_for_saving
-                for i in range(len(test_inits)):
-                    pop_list = test_data_for_saving[i]['traj']
-                    with torch.no_grad():
-                        st_init = torch.FloatTensor(pop_list[0]).unsqueeze(0).to(device)
-                        act_init = actor(st_init).cpu().numpy().squeeze(0)
-                        st_last = torch.FloatTensor(pop_list[-1]).unsqueeze(0).to(device)
-                        act_last = actor(st_last).cpu().numpy().squeeze(0)
-                    test_data_for_saving[i]['act_init'] = act_init
-                    test_data_for_saving[i]['act_last'] = act_last
-
                 save_dict = {
                     'ep': ep,
                     'rewards': np.array(rewards),
@@ -756,4 +770,6 @@ def train_policy(env: Any,
             print(log_str)
             with open(log_file, "a") as f:
                 f.write(log_str + "\n")
+
+    save_training(output_dir, episodes, rewards, eval_rewards, eval_eps, window=window_size)
 

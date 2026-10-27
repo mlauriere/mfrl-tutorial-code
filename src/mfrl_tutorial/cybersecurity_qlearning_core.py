@@ -12,6 +12,7 @@ import scipy as sp
 import scipy.stats
 import gymnasium as gym
 from scipy.spatial import cKDTree
+from .chapter5_io import save_snapshot, save_training
 
 # Set seed for reproducibility
 np.random.seed(1)
@@ -395,7 +396,8 @@ def plot_value_simplex_slices(output_dir: str, prefix: str, iter_idx: int, Q: np
     Row 2: Benchmark Cost (<u(0), m>)
     Harmonized color scale and single colorbar.
     """
-    mu_DI_vals = [0.0, 0.25, 0.5, 0.75, 1.0]
+    mu_DI_vals = tables.get('simplex_slices', [0.0, 0.25, 0.5, 0.75, 1.0])
+    grid_res = tables.get('simplex_grid_res', grid_res)
     n_slices = len(mu_DI_vals)
 
     # Grid for DS and UI
@@ -428,6 +430,11 @@ def plot_value_simplex_slices(output_dir: str, prefix: str, iter_idx: int, Q: np
     all_vals = np.concatenate([np.array(rl_costs_all).flatten(), np.array(bench_costs_all).flatten()])
     vmin = np.nanmin(all_vals)
     vmax = np.nanmax(all_vals)
+
+    save_snapshot(output_dir, 'simplex', iter_idx,
+        dict(X=X, Y=Y, slices=mu_DI_vals, rl=rl_costs_all, benchmark=bench_costs_all),
+        vmin=float(vmin), vmax=float(vmax), cmap='magma',
+        benchmark='Forward-backward ODE reference; not a discrete Q-learning optimum')
 
     # Figure 1: RL Cost Slices
     fig_rl, axes_rl = plt.subplots(1, n_slices, figsize=(5 * n_slices, 5), constrained_layout=True)
@@ -550,23 +557,40 @@ class QlearningSolver:
             if it == 0 or (it + 1) % eval_freq == 0:
                 total_r = 0
                 all_trajs = []
+                all_noise = []
                 for m0 in eval_inits:
                     mu_e, _ = self.env.reset(m0)
                     tr, d, traj = 0.0, False, [mu_e.copy()]
+                    v_h_path = [self.env.v_H]
                     while not d:
                         mu_e, rc, d, _, _ = self.env.step(np.argmax(self.Q[self.project(mu_e)[0]]))
                         tr += rc
                         traj.append(mu_e.copy())
+                        v_h_path.append(self.env.v_H)
                     total_r += tr
                     all_trajs.append(traj)
+                    all_noise.append(v_h_path)
                 eval_rewards.append(total_r / len(eval_inits))
                 eval_eps.append(it + 1)
+
+                arrays = dict(trajectories=all_trajs, time=np.linspace(0, self.env.T, self.env.Nt+1),
+                              v_h_paths=all_noise)
+                if ode_trajs is not None:
+                    arrays.update(reference=ode_trajs,
+                                  reference_time=np.linspace(0, self.env.T, len(ode_trajs[0])))
+                save_snapshot(self.output_dir, 'evaluation', it+1, arrays,
+                              rollouts_per_start=1, displayed_rollout='only rollout',
+                              reference='Forward-backward ODE solution at constant attack rate')
 
                 if it == 0 or (it + 1) % plot_freq == 0:
                     plot_training_progress(self.output_dir, "qlearning_", eval_rewards, eval_eps, it+1, q_diffs,
                                            train_rewards if mode == 'async_trajectory' else None)
                     plot_evaluation(self.output_dir, "qlearning_", self.env.T, self.env.Nt, all_trajs, it+1, ode_trajs)
                     plot_value_simplex_slices(self.output_dir, "qlearning_", it+1, self.Q, self.tables)
+                    save_training(self.output_dir, it+1, train_rewards, eval_rewards, eval_eps,
+                                  q_diffs=q_diffs)
 
         np.save(os.path.join(self.output_dir, "Q_table.npy"), self.Q)
+        save_training(self.output_dir, total_iters, train_rewards, eval_rewards, eval_eps,
+                      q_diffs=q_diffs)
         print(f"Done with {self.name}! Results in {self.output_dir}")

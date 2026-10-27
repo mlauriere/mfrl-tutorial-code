@@ -3,16 +3,16 @@
   "public_baseline": "5d5d35d8977bfc2c9921f1bc4285aa827ea0442c",
   "files": {
     ".gitignore": {
-      "bytes": 280,
-      "sha256": "bf9799ef00e0c7566aa05d3141b392e57956d7a6855a61ad00f78f4f3a9ccf12"
+      "bytes": 306,
+      "sha256": "4bf9765bab9104fbd06d5f90e524febb4fed7ee97560c4f150c6a932a49cf16c"
     },
     "LICENSE": {
       "bytes": 1078,
       "sha256": "b9c1b53da00e16d7f35cdc5dc480decb01038ea0a07817fce0df3033564eb628"
     },
     "README.md": {
-      "bytes": 2980,
-      "sha256": "e5db806f6be01516f5b2fcdce8671b3e6cc6466ac28d54f5a4d7d9db54b02cc7"
+      "bytes": 3523,
+      "sha256": "659e52f4630c69ebebe38e4839029db99a0f0f91b3d3c09ad1600f592a462d32"
     },
     "configs/cyber_ddpg_with_cn.yaml": {
       "bytes": 565,
@@ -59,16 +59,20 @@
       "sha256": "cff99fc872c435c7e6e970c4f865ba50d834c29afc8490ee2151789898fe9d98"
     },
     "docs/local_setup.md": {
-      "bytes": 1186,
-      "sha256": "e9151c594cab7a4be13f729173ad62564a5ec1773b082dd72827a99c3384c145"
+      "bytes": 1907,
+      "sha256": "6cd24cbf33af51bb6aaa7808f412100bd076b1769a019d4d1466e01cd5b1655a"
+    },
+    "docs/reproducing_chapter5.md": {
+      "bytes": 10982,
+      "sha256": "920e83fed20d178dd5e1fe0dbd68d653edc1ecd19ecb550d9e09761c25496a9f"
     },
     "docs/reproducing_figures.md": {
-      "bytes": 1884,
-      "sha256": "b63d68ee794d0fb7b613fdc1478ad9794635669668798e221c1c3385ec2e2bb9"
+      "bytes": 1435,
+      "sha256": "52f3ba0cf63f00b48f1206f084ca1e0fd935670b89db2c80f28bb82f8c28bfed"
     },
     "docs/reproducing_lq_revision.md": {
-      "bytes": 14694,
-      "sha256": "d077bd992a8c3839a85af942445051775ccf53e681774c35e910be635b99fc09"
+      "bytes": 14414,
+      "sha256": "78ee507ea62cada0d8476e2ed5d21e44ec60fb0cb14530e6256bc83a7d8bcaa6"
     },
     "environment.yml": {
       "bytes": 173,
@@ -79,8 +83,8 @@
       "sha256": "560f5fd5878dd84a1d0da6b662b0d439748757019615c189ae6dea625a51bbb3"
     },
     "requirements-lq-revision.txt": {
-      "bytes": 186,
-      "sha256": "7ef18ecda4b7a89cac20ba79bf249dffcbd4e54ddc454ed092fc2d1065cc0499"
+      "bytes": 108,
+      "sha256": "18706fe12a03f54a71593f8cbe0125a5f363395b0de32770df91ad17b53fbe9e"
     },
     "requirements.txt": {
       "bytes": 54,
@@ -95,32 +99,40 @@
       "sha256": "9337301a62922de6000951cec3604ae3cc7a82c7cc8ecde823350b723f7d4148"
     },
     "src/mfrl_tutorial/__init__.py": {
-      "bytes": 247,
-      "sha256": "dfa4ebcf0c187606001f13432323d936fda81fe2bc565cda57427a0b8d0f9b6c"
+      "bytes": 271,
+      "sha256": "ec342a0b321991cc026871dc14b30b55813d35fdf174d3cdc2047ba232fe80be"
+    },
+    "src/mfrl_tutorial/chapter5_figures.py": {
+      "bytes": 23568,
+      "sha256": "431aab8d1d269007a42f8a5f4418ebc6147feefcb54a7f5d8112e83f462352d1"
+    },
+    "src/mfrl_tutorial/chapter5_io.py": {
+      "bytes": 3700,
+      "sha256": "f317c651b13bd9f00cadd770b6c60eeb0b2165e93671db49e7303dd5c4f5f7c3"
     },
     "src/mfrl_tutorial/cybersecurity_ddpg.py": {
-      "bytes": 5507,
-      "sha256": "24057cc8cefd2655852bae424b214922e44cefe450ecba81a2d894017d078c33"
+      "bytes": 6020,
+      "sha256": "6d435a5e467d319c2b1205e062008c8811b5a01d64ddca4782baa14fd8541ac9"
     },
     "src/mfrl_tutorial/cybersecurity_ddpg_core.py": {
-      "bytes": 37895,
-      "sha256": "8b773ad2600ac8d61c096d3a315df749e63f5135326287908e91b23af0653aa8"
+      "bytes": 39245,
+      "sha256": "871527e1ab6b88e4c82cba6b1b3a30f7e40b4a289dbb432dea5f781fc231f18e"
     },
     "src/mfrl_tutorial/cybersecurity_qlearning.py": {
-      "bytes": 3657,
-      "sha256": "d940afae9817d8e2b32ec99d7be31fd9e88b923b87c8149b46ebd899364eddcf"
+      "bytes": 3939,
+      "sha256": "7fe1a2ddbf19a7623c7b96304d27eee5fa5a9327d1cb2d7bdac6ad6536c969a6"
     },
     "src/mfrl_tutorial/cybersecurity_qlearning_core.py": {
-      "bytes": 27246,
-      "sha256": "f7ab191881b337ee2e49fe68f9d58f396a82419a3bdb41694916569daa61e21f"
+      "bytes": 28730,
+      "sha256": "b8d5a0c2beaec9885bc8885a443869ceae1b9b1449cd32b420cb616398746420"
     },
     "src/mfrl_tutorial/distribution_planning_core.py": {
-      "bytes": 31975,
-      "sha256": "c2d44676fcd300dae96c17abb923c6459b4a62c8e352e0bbe39f5c0b8cae98a4"
+      "bytes": 33206,
+      "sha256": "28a09f013facd82a7edf8d58bb351ef5bb5129510fc93958d89f573e2ebc95c2"
     },
     "src/mfrl_tutorial/distribution_planning_ddpg.py": {
-      "bytes": 5849,
-      "sha256": "1352789b7aaedfaeffddb1525cedd97cd4fb68be6b751166c9b3de00aa723ad8"
+      "bytes": 6289,
+      "sha256": "8be0f32abd8e1afb37ad4890ecbe8e2491545f5079dbfe9884d7253ca03c4b81"
     },
     "src/mfrl_tutorial/env_check.py": {
       "bytes": 887,
@@ -135,8 +147,8 @@
       "sha256": "715a395dd1580969df6230f2633d60017f4d17fa9196062601473f05860efab9"
     },
     "src/mfrl_tutorial/lq_revision_build_native.py": {
-      "bytes": 1566,
-      "sha256": "78042491d8ab4d2fff4a24ee6cb661347a7684690a12c77fe4b5652275040184"
+      "bytes": 1664,
+      "sha256": "09b49aff12e5ee00054d9f703cf56151a4e983eb2b5abab3c949a0a92cfe29e5"
     },
     "src/mfrl_tutorial/lq_revision_check.py": {
       "bytes": 4848,

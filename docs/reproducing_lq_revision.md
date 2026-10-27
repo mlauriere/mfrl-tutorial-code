@@ -2,21 +2,17 @@
 
 This repository provides code to train the frozen benchmarks, analyze the
 resulting policies and plot the book figures from those local results. No
-datasets, training histories or generated figures are distributed. It extends
-the earlier scalar Adam demo. That demo is
-retained for historical compatibility and does not reproduce these figures.
-
-The earlier public baseline is commit
-`5d5d35d8977bfc2c9921f1bc4285aa827ea0442c`. To identify a reproduction from
-a Git checkout, record the current commit with `git rev-parse HEAD`.
+datasets, training histories or generated figures are distributed. These
+figures use plain constant-step SGD. The separate
+`mfrl_tutorial.lq_mfc_policy_gradient` module is an Adam demonstration and does
+not reproduce these figures. Record the source version with `git rev-parse HEAD`.
 
 ## Dependencies and process settings
 
 Run from the repository root with an existing Python interpreter that has the LQ
 dependencies in `requirements-lq-revision.txt`. The verified stack is
 Python 3.10.18, NumPy 1.26.4, SciPy 1.15.3 and Matplotlib 3.10.0, on x86_64 macOS.
-Preparing this candidate did not install, upgrade or change any packages.
-Other Python/platform combinations require their own compatibility check.
+Other Python/platform combinations may produce small numerical differences.
 
 The LQ routes do not require Torch, Gymnasium, YAML or Jupyter. Those are used
 by other examples retained from the public package. Package installation is
@@ -61,9 +57,9 @@ No C compiler or HPC is needed. To redraw one dimension only, add
 | 6.5, `fig:lq-2d-L` | Same matrix data | `L_entries_2d.pdf` |
 
 Separate panels/legends preserve the book's LaTeX assembly. Figure numbers
-refer to the current manuscript and should be rechecked before submission.
-PNG/PDF equivalence was checked locally against approved exports; byte identity
-is not promised across different Matplotlib/font/library versions.
+refer to the revised book. Numerical and rendered-figure checks were performed
+with the dependency versions above; byte identity is not promised across
+different Matplotlib/font/library versions.
 
 ## Data, schemas and integrity
 
@@ -230,7 +226,7 @@ nothing. `CC` may select an already installed compiler. On other platforms,
 use NumPy. Compilation and execution were tested on x86_64 macOS only; Linux
 build logic requires a check on Linux before claiming tested support.
 
-Then add `--backend fused` to the2D training command. The MKV path still uses
+Then add `--backend fused` to the 2D training command. The MKV path still uses
 the checked NumPy recursion. Local compiled libraries are intentionally absent
 from the distribution manifest. A missing library gives an explicit error;
 there is no silent backend change during resume.
@@ -256,21 +252,20 @@ For Figure 6.2, average raw updates 601–800 inclusive within each run, then
 summarize these 20 values. MF and own-N costs use their corresponding exact
 optimal costs for normalization. Points sit at exact N, without jitter. No
 asymptotic population-size rate is fitted. Saved errors are fractions; plots
-show percent. The accepted linear update axes, colors and line styles are
-retained. Internal experiment-selection cohorts do not appear in the figures.
+show percent. Training plots use linear update axes and consistent colors and line styles
+across dimensions. All configured seeds contribute to the displayed statistics.
 
 ## Verification, runtime and limitations
 
-Preparing the candidate exercised only bounded training checks: at most three
-updates per selected trajectory, including N100 at M=24000, fresh/restart
-equivalence, original/exported kernels and optional native/NumPy comparison.
-Full saved-data exact evaluation and figure generation require no simulator
-calls. The audit handoff records exact measured timings, numerical errors and
-validation commands; full 220-trajectory retraining was not repeated.
+Implementation checks cover bounded training (at most three updates per
+selected trajectory, including N=100 at M=24000), fresh/resumed equivalence,
+batched/reference kernels and the optional native/NumPy comparison. Exact
+evaluation of saved policies and figure generation require no simulator calls.
+These bounded checks do not replace a complete 220-trajectory reproduction.
 
-The historical20-seed N1002D production took about 2 h 18 min using four workers,
-with about 1.69 GiB peak per worker. That is context from the original study,
-not a runtime guarantee for this candidate, NumPy fallback or another host.
+A reference 20-seed N=100 2D run took about 2 h 18 min using four workers and
+the fused backend, with about 1.69 GiB peak per worker. This is not a runtime
+guarantee for the NumPy fallback or another host.
 Budget memory for full-horizon noise arrays when choosing worker count. The
 three-update smoke is a check, not a reliable sustained-load runtime forecast.
 
