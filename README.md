@@ -1,7 +1,9 @@
 # MFRL Tutorial Experiments
 
-Reproduce the numerical examples in the MFRL tutorial/book: cybersecurity,
-discrete distribution planning and linear-quadratic mean-field control.
+This repository implements the numerical examples in the monograph
+[*Mean Field Reinforcement Learning*](https://arxiv.org/abs/2607.01525)
+by René Carmona and Mathieu Laurière: cybersecurity, discrete distribution
+planning and linear-quadratic mean-field control.
 
 **This repository contains code, configurations and documentation only.** No
 datasets, training histories, model checkpoints or precomputed figures are
